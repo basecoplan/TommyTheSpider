@@ -5,6 +5,7 @@
     "noImplicitAny": true,
     "module": "es6",
     "target": "es6",
+    "moduleResolution": "node",
     "jsx": "react",
     "allowJs": true,
     "typeRoots": [
@@ -14,5 +15,8 @@
       "Phaser"
     ],
     "allowSyntheticDefaultImports": true
-  }
+  },
+  "exclude": [
+    "node_modules"
+  ]
 }
