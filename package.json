@@ -40,6 +40,7 @@
         "webpack-merge": "^4.2.2"
     },
     "dependencies": {
-        "phaser": "^3.20.1"
+        "@babylonjs/core": "^4.0.3",
+        "@babylonjs/materials": "^4.0.3"
     }
 }
