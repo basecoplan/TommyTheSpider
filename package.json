@@ -1,0 +1,33 @@
+{
+  "name": "tommythespider",
+  "version": "0.0.1",
+  "description": "The best game ever made by idiots",
+  "private": true,
+  "scripts": {
+    "build": "webpack",
+    "watch": "webpack --watch",
+    "start": "webpack-dev-server --open",
+    "test": "figa"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/basecoplan/TommyTheSpider.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/basecoplan/TommyTheSpider/issues"
+  },
+  "homepage": "https://github.com/basecoplan/TommyTheSpider#readme",
+  "devDependencies": {
+    "clean-webpack-plugin": "^3.0.0",
+    "css-loader": "^3.2.0",
+    "express": "^4.17.1",
+    "html-webpack-plugin": "^3.2.0",
+    "style-loader": "^1.0.0",
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.10",
+    "webpack-dev-middleware": "^3.7.2",
+    "webpack-dev-server": "^3.9.0"
+  }
+}
