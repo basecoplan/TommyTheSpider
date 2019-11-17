@@ -1,10 +1,16 @@
 html,
 body,
-#renderCanvas {
+canvas {
     min-width: 100%;
     max-width: 100%;
     min-height: 100%;
     max-height: 100%;
     padding: 0;
     margin: 0;
+}
+
+canvas {
+    &:hover {
+        cursor: crosshair;
+    }
 }

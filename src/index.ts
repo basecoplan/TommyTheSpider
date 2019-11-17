@@ -12,10 +12,12 @@ import { ExecuteCodeAction, ActionEvent } from '@babylonjs/core/Actions';
 
 import '@babylonjs/core/Materials/standardMaterial';
 import '@babylonjs/core/Lights/Shadows/shadowGeneratorSceneComponent';
+
 import { ShadowGenerator } from '@babylonjs/core/Lights/Shadows/shadowGenerator';
 
+import './style.scss';
+
 import { Player, Enemy } from './core';
-import './style.css';
 
 
 function addCanvas(): HTMLCanvasElement {
@@ -50,21 +52,24 @@ function addActors(scene: Scene) {
   const enemy2 = new Enemy();
 
   const actors = [player, enemy1, enemy2];
+
   actors.forEach((a) => a.initialize(scene));
   actors.forEach((a) => {
     a.mesh.position.y = 2;
     a.mesh.receiveShadows = true;
     a.mesh.checkCollisions = true;
   });
+
   enemy1.mesh.position.x = 4;
   enemy2.mesh.position.x = -4;
+
   return actors;
 }
 
 function registerKeys(scene: Scene, player: Player, camera: UniversalCamera) {
   // Keyboard events
   const inputMap: Record<string, boolean> = {};
-  // eslint-disable-next-line no-param-reassign
+  
   scene.actionManager = new ActionManager(scene);
   scene.actionManager.registerAction(
     new ExecuteCodeAction(ActionManager.OnKeyDownTrigger,
@@ -80,22 +85,24 @@ function registerKeys(scene: Scene, player: Player, camera: UniversalCamera) {
   );
 
   scene.onBeforeRenderObservable.add(() => {
-    let direction = new Vector3(0, 0, 0);
+    const direction = new Vector3(0, 0, 0);
     const speed = PLAYER_SPEED;
+
     if (inputMap.w || inputMap.ArrowUp) {
-      direction = new Vector3(0, 0, -speed);
-    }
-    if (inputMap.a || inputMap.ArrowLeft) {
-      direction = new Vector3(speed, 0, 0);
+      direction.z -= speed;
     }
     if (inputMap.s || inputMap.ArrowDown) {
-      direction = new Vector3(0, 0, speed);
+      direction.z += speed;
+    }
+    if (inputMap.a || inputMap.ArrowLeft) {
+      direction.x += speed;
     }
     if (inputMap.d || inputMap.ArrowRight) {
-      direction = new Vector3(-speed, 0, 0);
+      direction.x -= speed;
     }
+
     player.mesh.moveWithCollisions(direction);
-    // eslint-disable-next-line no-param-reassign
+    
     camera.position = player.mesh.position.add(CAMERA_DEFAULT_OFFSET);
   });
 }
@@ -104,12 +111,17 @@ function addScene(engine: Engine, canvas: HTMLCanvasElement) {
   const scene = new Scene(engine);
   scene.collisionsEnabled = true;
 
-  const ground = MeshBuilder.CreateGround('Ground', { width: 40, height: 40, subdivisions: 4 }, scene);
+  const groundConfig = {
+    width: 512,
+    height: 512,
+    subdivisions: 4,
+  }
+  const ground = MeshBuilder.CreateGround('Ground', groundConfig, scene);
   ground.receiveShadows = true;
-
 
   const actors = addActors(scene);
   const camera = addCamera(scene, canvas, actors[0].mesh);
+
   registerKeys(scene, actors[0], camera);
 
   const light = addLight(scene);
