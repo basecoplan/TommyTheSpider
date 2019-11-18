@@ -31,7 +31,7 @@ export class Player extends Actor {
     const material = new StandardMaterial('EnemyMaterial', scene);
     material.diffuseColor = new Color3(0, 1, 0);
 
-    const mesh = MeshBuilder.CreateCylinder('Cylinder', { diameter: 2, height: 4 }, scene);
+    const mesh = MeshBuilder.CreatePolyhedron('Actor', { type: 0, size: 2 }, scene);
     mesh.material = material;
 
     this.mesh = mesh;
