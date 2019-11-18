@@ -6,7 +6,6 @@ import { Vector3 } from '@babylonjs/core/Maths/math';
 import { DirectionalLight } from '@babylonjs/core/Lights/directionalLight';
 
 import { MeshBuilder } from '@babylonjs/core/Meshes/meshBuilder';
-import { UniversalCamera, Mesh } from '@babylonjs/core';
 
 import { ActionManager } from '@babylonjs/core/Actions/actionManager';
 import { ExecuteCodeAction, ActionEvent } from '@babylonjs/core/Actions';
@@ -36,8 +35,12 @@ const CAMERA_DEFAULT_OFFSET = new Vector3(0, 40, 40);
 
 const PLAYER_SPEED = 0.5;
 
-function addCamera(scene: Scene, canvas: HTMLCanvasElement, target: Mesh): UniversalCamera {
-  const camera = new UniversalCamera('Camera', CAMERA_DEFAULT_OFFSET, scene);
+function addCamera(
+  scene: Scene,
+  canvas: HTMLCanvasElement,
+  target: BABYLON.Mesh,
+): BABYLON.UniversalCamera {
+  const camera = new BABYLON.UniversalCamera('Camera', CAMERA_DEFAULT_OFFSET, scene);
   camera.setTarget(target.position.add(CAMERA_PLAYER_OFFSET));
   return camera;
 }
@@ -69,10 +72,10 @@ function addActors(scene: Scene) {
   return actors;
 }
 
-function registerKeys(scene: Scene, player: Player, camera: UniversalCamera) {
+function registerKeys(scene: Scene, player: Player, camera: BABYLON.UniversalCamera) {
   // Keyboard events
   const inputMap: Record<string, boolean> = {};
-  
+
   scene.actionManager = new ActionManager(scene);
   scene.actionManager.registerAction(
     new ExecuteCodeAction(ActionManager.OnKeyDownTrigger,
@@ -105,7 +108,7 @@ function registerKeys(scene: Scene, player: Player, camera: UniversalCamera) {
     }
 
     player.mesh.moveWithCollisions(direction);
-    
+
     camera.position = player.mesh.position.add(CAMERA_DEFAULT_OFFSET);
   });
 }
@@ -118,7 +121,7 @@ function addScene(engine: Engine, canvas: HTMLCanvasElement) {
     width: 512,
     height: 512,
     subdivisions: 4,
-  }
+  };
   const ground = MeshBuilder.CreateGround('Ground', groundConfig, scene);
   ground.receiveShadows = true;
 
@@ -141,11 +144,12 @@ function registerEventListeners(scene: Scene) {
   scene.onPointerObservable.add((pointerInfo) => {
     switch (pointerInfo.type) {
       case BABYLON.PointerEventTypes.POINTERMOVE:
-        console.log(pointerInfo);
+        // console.log(pointerInfo);
+        break;
       default:
         break;
     }
-  })
+  });
 }
 
 function setup() {
