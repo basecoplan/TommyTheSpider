@@ -1,3 +1,0 @@
-const onPointerMove = (event: MouseEvent) => {
-
-}

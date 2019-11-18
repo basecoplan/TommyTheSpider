@@ -1,4 +1,5 @@
 /* eslint-disable no-param-reassign */
+import * as BABYLON from '@babylonjs/core';
 import { Engine } from '@babylonjs/core/Engines/engine';
 import { Scene } from '@babylonjs/core/scene';
 import { Vector3 } from '@babylonjs/core/Maths/math';
@@ -22,8 +23,10 @@ import { Player, Enemy } from './core';
 
 function addCanvas(): HTMLCanvasElement {
   const canvas: HTMLCanvasElement = document.createElement('canvas');
+
   canvas.id = 'renderCanvas';
   document.body.appendChild(canvas);
+
   return canvas;
 }
 
@@ -134,10 +137,23 @@ function addScene(engine: Engine, canvas: HTMLCanvasElement) {
   return scene;
 }
 
+function registerEventListeners(scene: Scene) {
+  scene.onPointerObservable.add((pointerInfo) => {
+    switch (pointerInfo.type) {
+      case BABYLON.PointerEventTypes.POINTERMOVE:
+        console.log(pointerInfo);
+      default:
+        break;
+    }
+  })
+}
+
 function setup() {
   const canvas = addCanvas();
   const engine = new Engine(canvas);
   const scene = addScene(engine, canvas);
+
+  registerEventListeners(scene);
 
   engine.runRenderLoop(() => {
     scene.render();
