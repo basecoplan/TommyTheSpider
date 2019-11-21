@@ -43,6 +43,7 @@
     },
     "dependencies": {
         "@babylonjs/core": "^4.0.3",
-        "@babylonjs/materials": "^4.0.3"
+        "@babylonjs/materials": "^4.0.3",
+        "ts-md5": "^1.2.7"
     }
 }
