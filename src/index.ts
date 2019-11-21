@@ -18,6 +18,7 @@ import { ShadowGenerator } from '@babylonjs/core/Lights/Shadows/shadowGenerator'
 import './style.scss';
 
 import { Player, Enemy } from './core';
+import { MainArrowPointerSystemInstance } from './core/systems/main-arrow-pointer-system';
 
 
 function addCanvas(): HTMLCanvasElement {
@@ -32,8 +33,7 @@ function addCanvas(): HTMLCanvasElement {
 const CAMERA_PLAYER_OFFSET = new Vector3(0, 0, -15);
 const CAMERA_DEFAULT_OFFSET = new Vector3(0, 40, 40);
 
-
-const PLAYER_SPEED = 0.5;
+const PLAYER_SPEED = 0.4;
 
 function addCamera(
   scene: Scene,
@@ -41,7 +41,9 @@ function addCamera(
   target: BABYLON.Mesh,
 ): BABYLON.UniversalCamera {
   const camera = new BABYLON.UniversalCamera('Camera', CAMERA_DEFAULT_OFFSET, scene);
+
   camera.setTarget(target.position.add(CAMERA_PLAYER_OFFSET));
+
   return camera;
 }
 
@@ -59,8 +61,9 @@ function addActors(scene: Scene) {
 
   const actors = [player, enemy1, enemy2];
 
-  actors.forEach((a) => a.initialize(scene));
   actors.forEach((a) => {
+    a.initialize(scene);
+
     a.mesh.position.y = 2;
     a.mesh.receiveShadows = true;
     a.mesh.checkCollisions = true;
@@ -144,7 +147,7 @@ function registerEventListeners(scene: Scene) {
   scene.onPointerObservable.add((pointerInfo) => {
     switch (pointerInfo.type) {
       case BABYLON.PointerEventTypes.POINTERMOVE:
-        // console.log(pointerInfo);
+          MainArrowPointerSystemInstance.setArrowPointerInfo(pointerInfo);
         break;
       default:
         break;

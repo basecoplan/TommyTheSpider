@@ -6,6 +6,8 @@ import { StandardMaterial, Color3 } from '@babylonjs/core';
 
 import { IActor } from '../types';
 import { generateId } from '../utils/id-generator';
+import { SystemsIds } from '../enums/systems-ids';
+import { ComponentsIds } from '../enums/components-ids';
 
 class Actor implements IActor {
   public get id(): string {
@@ -16,11 +18,17 @@ class Actor implements IActor {
     return this._mesh;
   }
 
+  public get components(): Set<ComponentsIds> {
+    return this._components;
+  }
+
   protected _id: string;
   protected _mesh: Mesh;
+  protected _components: Set<ComponentsIds>;
 
   constructor() {
     this._id = generateId();
+    this._components = new Set();
   }
 
   public initialize(scene: Scene): void {}
