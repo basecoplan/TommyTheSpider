@@ -4,8 +4,8 @@ import { MeshBuilder } from '@babylonjs/core/Meshes/meshBuilder';
 import { Scene } from '@babylonjs/core/scene';
 import { StandardMaterial, Color3 } from '@babylonjs/core';
 
-import { IActor, IComponent } from '../types';
-import {generateId} from '../utils/id-generator';
+import { IActor } from '../types';
+import { generateId } from '../utils/id-generator';
 
 class Actor implements IActor {
   public get id(): string {
@@ -16,17 +16,11 @@ class Actor implements IActor {
     return this._mesh;
   }
 
-  public get components(): Map<string, IComponent> {
-    return this._components;
-  }
-
   protected _id: string;
   protected _mesh: Mesh;
-  protected _components: Map<string, IComponent>;
 
   constructor() {
     this._id = generateId();
-    this._components = new Map();
   }
 
   public initialize(scene: Scene): void {}
