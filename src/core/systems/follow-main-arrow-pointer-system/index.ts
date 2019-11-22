@@ -7,7 +7,7 @@ interface IMainArrowPointerSystem {
     pointerInfo: PointerInfo
 }
 
-class MainArrowPointerSystem extends BaseSystem implements IMainArrowPointerSystem {
+class FollowMainArrowPointerSystem extends BaseSystem implements IMainArrowPointerSystem {
     public get pointerInfo(): PointerInfo {
         return this._pointerInfo;
     }
@@ -25,4 +25,4 @@ class MainArrowPointerSystem extends BaseSystem implements IMainArrowPointerSyst
     }
 }
 
-export const MainArrowPointerSystemInstance = new MainArrowPointerSystem();
+export const FollowMainArrowPointerSystemInstance = new FollowMainArrowPointerSystem();

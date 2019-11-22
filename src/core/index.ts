@@ -57,6 +57,8 @@ export class Player extends Actor {
     mesh.material = material;
 
     this._mesh = mesh;
+    this._position = mesh.position;
+    this._rotation = mesh.rotation;
   }
 }
 

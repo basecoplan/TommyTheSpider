@@ -1,4 +1,4 @@
-import {Md5} from 'ts-md5';
+import { Md5 } from 'ts-md5';
 
 const HASH_SALT = 'AlexILoveYou';
 

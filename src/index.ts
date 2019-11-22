@@ -18,7 +18,7 @@ import { ShadowGenerator } from '@babylonjs/core/Lights/Shadows/shadowGenerator'
 import './style.scss';
 
 import { Player, Enemy } from './core';
-import { MainArrowPointerSystemInstance } from './core/systems/main-arrow-pointer-system';
+import { FollowMainArrowPointerSystemInstance } from './core/systems/follow-main-arrow-pointer-system';
 
 
 function addCanvas(): HTMLCanvasElement {
@@ -147,7 +147,7 @@ function registerEventListeners(scene: Scene) {
   scene.onPointerObservable.add((pointerInfo) => {
     switch (pointerInfo.type) {
       case BABYLON.PointerEventTypes.POINTERMOVE:
-          MainArrowPointerSystemInstance.setArrowPointerInfo(pointerInfo);
+          FollowMainArrowPointerSystemInstance.setArrowPointerInfo(pointerInfo);
         break;
       default:
         break;
