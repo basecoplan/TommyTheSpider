@@ -1,3 +1,4 @@
 export enum SystemsIds {
-    MainArrowPointer = 'MainArrowPointer'
+    MainArrowPointer = 'MainArrowPointer',
+    PlayerControls = 'PlayerControls',
 }
