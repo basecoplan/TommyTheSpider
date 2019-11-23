@@ -8,8 +8,9 @@ export interface ISystem {
     entities: Set<IEntity>;
 }
 
-export interface IComponent {
+export interface IComponent<T = unknown> {
     id: ComponentsIds;
+    value: T;
     entities: Set<IEntity>;
 }
 
