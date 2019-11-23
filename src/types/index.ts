@@ -5,16 +5,17 @@ import { ComponentsIds } from "../enums/components-ids";
 
 export interface ISystem {
     id: SystemsIds;
-    entities: Set<string>;
+    entities: Set<IEntity>;
 }
 
 export interface IComponent {
     id: ComponentsIds;
+    entities: Set<IEntity>;
 }
 
-interface IEntity {
+export interface IEntity {
     id: string;
-    components: Set<ComponentsIds>
+    components: Map<ComponentsIds, IComponent>;
 }
 
 export interface IActor extends IEntity {
