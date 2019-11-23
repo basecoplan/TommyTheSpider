@@ -63,14 +63,7 @@ function addActors(scene: Scene) {
 
   actors.forEach((a) => {
     a.initialize(scene);
-
-    a.mesh.position.y = 2;
-    a.mesh.receiveShadows = true;
-    a.mesh.checkCollisions = true;
   });
-
-  enemy1.mesh.position.x = 4;
-  enemy2.mesh.position.x = -4;
 
   return actors;
 }
