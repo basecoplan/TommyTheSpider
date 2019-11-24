@@ -1,5 +1,6 @@
 export enum ComponentsIds {
     Mesh = 'Mesh',
     Speed = 'Speed',
-    HasPlayerControls = 'HasPlayerContols',
+    HasPlayerControls = 'HasPlayerControls',
+    ActiveCamera = 'ActiveCamera',
 }
