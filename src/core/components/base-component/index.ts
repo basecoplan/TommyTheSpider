@@ -8,7 +8,7 @@ export abstract class BaseComponent<T> implements IComponent<T> {
 
     public abstract get entities(): Set<IEntity>;
 
-    public static entities: Set<IEntity>;
+    public static entitiesSet: Set<IEntity>;
     public id: ComponentsIds;
 
     constructor(

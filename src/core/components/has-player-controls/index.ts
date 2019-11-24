@@ -9,10 +9,10 @@ export class HasPlayerControlsComponent implements IComponent {
     }
 
     public get entities(): Set<IEntity> {
-        return HasPlayerControlsComponent.entities;
+        return HasPlayerControlsComponent.entitiesSet;
     }
 
-    public static entities: Set<IEntity> = SET;
+    public static entitiesSet: Set<IEntity> = SET;
     public id: ComponentsIds = ComponentsIds.HasPlayerControls;
 
     constructor(

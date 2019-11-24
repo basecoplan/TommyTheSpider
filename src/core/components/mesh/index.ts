@@ -7,9 +7,9 @@ const SET: Set<IEntity> = new Set();
 
 export class MeshComponent extends BaseComponent<Mesh> { 
     public get entities(): Set<IEntity> {
-        return MeshComponent.entities;
+        return MeshComponent.entitiesSet;
     }
 
-    public static entities: Set<IEntity> = SET;
+    public static entitiesSet: Set<IEntity> = SET;
     public id: ComponentsIds = ComponentsIds.Mesh;
 }

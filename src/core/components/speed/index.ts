@@ -6,9 +6,9 @@ const SET: Set<IEntity> = new Set();
 
 export class SpeedComponent extends BaseComponent<number> { 
     public get entities(): Set<IEntity> {
-        return SpeedComponent.entities;
+        return SpeedComponent.entitiesSet;
     }
 
-    public static entities: Set<IEntity> = SET;
-    public id: ComponentsIds = ComponentsIds.Mesh;
+    public static entitiesSet: Set<IEntity> = SET;
+    public id: ComponentsIds = ComponentsIds.Speed;
 }
