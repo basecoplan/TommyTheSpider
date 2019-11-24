@@ -8,9 +8,11 @@ interface IComponentCollection {
 export class ComponentCollection implements IComponentCollection {
     public entries: Map<ComponentsIds, IComponent> = new Map();
 
+    // TODO: Add conditional typings for components
     public add(component: IComponent, entity: IEntity): void {
-        this.entries.set(component.id, component);
-
         component.entities.add(entity);
+
+        this.entries.set(component.id, component);
     };
+
 }

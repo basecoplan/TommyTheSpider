@@ -14,11 +14,11 @@ export abstract class BaseSystem implements ISystem {
 
     constructor(
         protected _id: SystemsIds
-    ) {
-        this._initializeEntities();
-    }
+    ) {}
 
     public process(): void {
+        this._initializeEntities();
+        
         this._entities.forEach(this._processEntity);
     }
 
