@@ -1,14 +1,18 @@
 /* eslint-disable max-classes-per-file */
 import { MeshBuilder } from '@babylonjs/core/Meshes/meshBuilder';
 import { Scene } from '@babylonjs/core/scene';
-import { StandardMaterial, Color3 } from '@babylonjs/core';
+import { StandardMaterial, Color3, Vector3, UniversalCamera } from '@babylonjs/core';
 
 import { BaseEntity } from './entities/base-enity';
 import { MeshComponent } from './components/mesh';
 import { SpeedComponent } from './components/speed';
+import { HasPlayerControlsComponent } from './components/has-player-controls';
+import { ActiveCameraComponent } from './components/active-camera';
+import { ComponentsIds } from '../enums/components-ids';
 
 class Actor extends BaseEntity {}
 
+const CAMERA_DEFAULT_OFFSET = new Vector3(0, 40, 40);
 
 export class Enemy extends Actor {
   initialize(scene: Scene) {
@@ -32,6 +36,8 @@ export class Player extends Actor {
   initialize(scene: Scene) : void {
     this._initializeMesh(scene);
     this._initializeSpeed();
+    this._initializePlayersControls();
+    this._initializeCamera(scene);
   }
 
   private _initializeMesh(scene: Scene): void {
@@ -51,6 +57,18 @@ export class Player extends Actor {
 
   private _initializeSpeed(): void {
     this._components.add(new SpeedComponent(0.4), this);
+  }
+
+  private _initializePlayersControls(): void {
+    this._components.add(new HasPlayerControlsComponent(true), this);
+  }
+
+  private _initializeCamera(scene: Scene): void {
+    const camera = new UniversalCamera('Camera', CAMERA_DEFAULT_OFFSET, scene);
+
+    camera.setTarget((this.components.get(ComponentsIds.Mesh) as MeshComponent)?.value.position);
+
+    this._components.add(new ActiveCameraComponent(camera), this);
   }
 }
 
