@@ -56,6 +56,7 @@ function registerEventListeners(scene: Scene) {
   scene.onPointerObservable.add((pointerInfo) => {
     switch (pointerInfo.type) {
       case BABYLON.PointerEventTypes.POINTERMOVE:
+          const pointerInfo = scene.pick(scene.pointerX, scene.pointerY);
           FollowMainArrowPointerSystemInstance.setArrowPointerInfo(pointerInfo);
         break;
       default:
@@ -72,6 +73,7 @@ function setup() {
   PlayerControlsSystemInstance.registerActions(scene);
   scene.onBeforeRenderObservable.add(() => {
     PlayerControlsSystemInstance.process();
+    FollowMainArrowPointerSystemInstance.process();
   });
 
   registerEventListeners(scene);
