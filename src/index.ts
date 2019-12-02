@@ -7,9 +7,6 @@ import { DirectionalLight } from '@babylonjs/core/Lights/directionalLight';
 
 import { MeshBuilder } from '@babylonjs/core/Meshes/meshBuilder';
 
-import { ActionManager } from '@babylonjs/core/Actions/actionManager';
-import { ExecuteCodeAction, ActionEvent } from '@babylonjs/core/Actions';
-
 import '@babylonjs/core/Materials/standardMaterial';
 import '@babylonjs/core/Lights/Shadows/shadowGeneratorSceneComponent';
 

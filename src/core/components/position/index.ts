@@ -1,4 +1,4 @@
-import { Mesh, Vector3 } from "@babylonjs/core";
+import { Vector3 } from "@babylonjs/core";
 import { IEntity } from "../../../types";
 import { ComponentsIds } from "../../../enums/components-ids";
 import { BaseComponent } from "../base-component";
