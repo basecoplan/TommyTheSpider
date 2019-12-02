@@ -17,7 +17,6 @@ export class StaticMeshPositionSystem extends BaseSystem {
 
     protected _initializeEntities(): void {
         const entities = Array.from(PositionComponent.entitiesSet.values())
-            .filter(MeshComponent.entitiesSet.has);
 
         this._entities = new Set(entities);
     }
@@ -26,6 +25,8 @@ export class StaticMeshPositionSystem extends BaseSystem {
         const { value: mesh } = components.get(ComponentsIds.Mesh) as MeshComponent;
         const { value: position } = components.get(ComponentsIds.Position) as PositionComponent;
         const defaultEntityPosition = this.defaultPositions.get(id);
+
+        console.log(id, defaultEntityPosition);
 
         if (defaultEntityPosition) {
             mesh.setAbsolutePosition(position.add(defaultEntityPosition));

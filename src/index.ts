@@ -17,6 +17,7 @@ import './style.scss';
 import { Player, Enemy } from './core';
 import { FollowMainArrowPointerSystemInstance } from './core/systems/follow-main-arrow-pointer-system';
 import { PlayerControlsSystemInstance } from './core/systems/player-controls-system';
+import { StaticMeshPositionSystemInstance } from './core/systems/static-mesh-position-system';
 
 
 function addCanvas(): HTMLCanvasElement {
@@ -40,10 +41,15 @@ function addActors(scene: Scene) {
   const enemy1 = new Enemy();
   const enemy2 = new Enemy();
 
-  const actors = [player, enemy1, enemy2];
+  const enemies = [enemy1, enemy2];
+  const actors = [player, ...enemies];
 
   actors.forEach((a) => {
     a.initialize(scene);
+  });
+
+  enemies.forEach(({id}, index) => {
+    StaticMeshPositionSystemInstance.defaultPositions.set(id, new Vector3(index * 16 + 4, 0));
   });
 
   return actors;
@@ -72,6 +78,8 @@ function setup() {
     PlayerControlsSystemInstance.process();
     FollowMainArrowPointerSystemInstance.process();
   });
+
+  StaticMeshPositionSystemInstance.process();
 
   registerEventListeners(scene);
 
