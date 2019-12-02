@@ -3,4 +3,5 @@ export enum ComponentsIds {
     Speed = 'Speed',
     HasPlayerControls = 'HasPlayerControls',
     ActiveCamera = 'ActiveCamera',
+    Position = 'Position',
 }

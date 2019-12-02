@@ -9,13 +9,23 @@ import { SpeedComponent } from './components/speed';
 import { HasPlayerControlsComponent } from './components/has-player-controls';
 import { ActiveCameraComponent } from './components/active-camera';
 import { ComponentsIds } from '../enums/components-ids';
+import { PositionComponent } from './components/position';
 
-class Actor extends BaseEntity {}
+class Actor extends BaseEntity {
+  initialize(scene: Scene): void {
+    const defaultPosition = new Vector3(0, 2, 0);
+    const positionComponent = new PositionComponent(defaultPosition);
+
+    this._components.add(positionComponent, this);
+  }
+}
 
 const CAMERA_DEFAULT_OFFSET = new Vector3(0, 40, 40);
 
 export class Enemy extends Actor {
-  initialize(scene: Scene) {
+  initialize(scene: Scene): void {
+    super.initialize(scene);
+
     // TODO: Materials names enum
     const material = new StandardMaterial('EnemyMaterial', scene);
     material.diffuseColor = new Color3(1, 0, 0);
