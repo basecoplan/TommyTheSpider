@@ -18,6 +18,7 @@ import { Player, Enemy } from './core';
 import { FollowMainArrowPointerSystemInstance } from './core/systems/follow-main-arrow-pointer-system';
 import { PlayerControlsSystemInstance } from './core/systems/player-controls-system';
 import { StaticMeshPositionSystemInstance } from './core/systems/static-mesh-position-system';
+import { HemisphericLight } from '@babylonjs/core';
 
 
 function addCanvas(): HTMLCanvasElement {
@@ -29,11 +30,19 @@ function addCanvas(): HTMLCanvasElement {
   return canvas;
 }
 
-function addLight(scene: Scene): DirectionalLight {
-  const light = new DirectionalLight('dir01', new Vector3(-1, -2, -1), scene);
-  light.position = new Vector3(20, 40, 20);
-  light.intensity = 0.5;
-  return light;
+function addLight(scene: Scene): HemisphericLight {
+  const hemiLight = new BABYLON.HemisphericLight("hemi", new BABYLON.Vector3(0, 1, 0), scene);
+  hemiLight.diffuse.set(1, 0.7, 0.5);
+  hemiLight.specular.set(1, 0.7, 0.5);
+  hemiLight.direction.set(-1, 1, 0);
+  hemiLight.shadowEnabled = true;
+  hemiLight.intensity = 0.7;
+
+  const light = new DirectionalLight('dir01', new Vector3(0.5, -1, 2), scene);
+  light.position = new Vector3(0, 1, 0);
+  light.intensity = 0.2;
+
+  return hemiLight;
 }
 
 function addActors(scene: Scene) {
@@ -92,14 +101,7 @@ function addScene(engine: Engine, canvas: HTMLCanvasElement) {
   const scene = new Scene(engine);
   scene.collisionsEnabled = true;
 
-  const groundConfig = {
-    width: 512,
-    height: 512,
-    subdivisions: 4,
-  };
-  const ground = MeshBuilder.CreateGround('Ground', groundConfig, scene);
-  ground.receiveShadows = true;
-  
+  addGround(scene);
   addActors(scene);
 
   const light = addLight(scene);
@@ -113,3 +115,51 @@ function addScene(engine: Engine, canvas: HTMLCanvasElement) {
 }
 
 setup();
+
+
+function addGround(scene: Scene) {
+  const tileSize = 150;
+  const grid = {
+      'h' : 48,
+      'w' : 48
+  };
+
+  const tiledGround = MeshBuilder.CreateTiledGround(
+      "Tiled Ground",
+      {xmin: -tileSize, zmin: -tileSize, xmax: tileSize, zmax: tileSize, subdivisions: grid},
+      scene
+    );
+
+  tiledGround.receiveShadows = true;
+  //Create the multi material
+  // Create differents materials
+  const whiteMaterial = new BABYLON.StandardMaterial("White", scene);
+  whiteMaterial.diffuseColor = new BABYLON.Color3(1, 1, 1);
+
+  const blackMaterial = new BABYLON.StandardMaterial("Black", scene);
+  blackMaterial.diffuseColor = new BABYLON.Color3(0, 0, 0);
+
+  // Create Multi Material
+  const multimat = new BABYLON.MultiMaterial("multi", scene);
+  multimat.subMaterials.push(whiteMaterial);
+  multimat.subMaterials.push(blackMaterial);
+
+
+  // Apply the multi material
+  // Define multimat as material of the tiled ground
+  tiledGround.material = multimat;
+
+  // Needed constiables to set subMeshes
+  const verticesCount = tiledGround.getTotalVertices();
+  const tileIndicesLength = tiledGround.getIndices().length / (grid.w * grid.h);
+
+  // Set subMeshes of the tiled ground
+  tiledGround.subMeshes = [];
+  let base = 0;
+  for (let row = 0; row < grid.h; row++) {
+      for (let col = 0; col < grid.w; col++) {
+          tiledGround.subMeshes.push(new BABYLON.SubMesh(row%2 ^ col%2, 0, verticesCount, base , tileIndicesLength, tiledGround));
+          base += tileIndicesLength;
+      }
+  }
+}
