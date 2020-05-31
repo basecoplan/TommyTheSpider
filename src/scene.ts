@@ -1,6 +1,6 @@
 import { Scene } from 'phaser';
 
-import { cartesianToIsometric } from './core/geometry';
+import { cartesianToIsometric } from './geometry';
 import tileset from './assets/tileset.png';
 import mapJson from './assets/map.json';
 
