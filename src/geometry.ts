@@ -1,7 +1,16 @@
-interface Point {
+export enum Direction {
+  North,
+  West,
+  South,
+  East
+}
+
+export interface Point {
   x: number;
   y: number;
 }
+
+export type Vector = Point;
 
 export function cartesianToIsometric({ x, y }: Point): Point {
   return {
