@@ -42,8 +42,7 @@
         "webpack-merge": "^4.2.2"
     },
     "dependencies": {
-        "@babylonjs/core": "^4.0.3",
-        "@babylonjs/materials": "^4.0.3",
+        "phaser": "^3.23.0",
         "ts-md5": "^1.2.7"
     }
 }

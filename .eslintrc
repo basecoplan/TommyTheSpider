@@ -1,7 +1,8 @@
 {
   "extends": "airbnb-typescript/base",
   "rules": {
-    "no-param-reassign": 0
+    "no-param-reassign": "off",
+    "no-plusplus": "off"
   },
   "env": {
     "browser": true
